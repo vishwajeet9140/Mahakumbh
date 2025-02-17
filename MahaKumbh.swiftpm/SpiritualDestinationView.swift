@@ -3,7 +3,7 @@ import SwiftUI
 struct SpiritualDestinationView: View {
     @State private var selectedQuestion: Int? = nil
     let imageCards = ["spritiual1", "spritiual2", "spritiual3"]
-
+    
     let questionsAndAnswers = [
         ("Why do so many people gather at the Mahakumbh Mela?", "Millions of people attend the Mahakumbh Mela because it is considered the most spiritually significant gathering in Hinduism. According to Hindu mythology, it is believed that the holy rivers, especially the Ganges, have the power to cleanse individuals of their sins, offering them a chance for spiritual purification. The gathering also allows people to receive blessings from saints and gurus, making it an auspicious event for all who participate."),
         ("What makes bathing in the Ganges during Mahakumbh so special?", "Bathing in the Ganges during Mahakumbh is believed to wash away one's sins and purify the soul. This belief is deeply rooted in Hindu mythology, which says that the gods spilled drops of nectar of immortality (Amrit) into the river, making the waters sacred. Bathing at this time, when specific celestial alignments occur, is believed to enhance the spiritual benefits and lead to salvation (moksha)."),
@@ -16,76 +16,85 @@ struct SpiritualDestinationView: View {
         ("Is attending Mahakumbh Mela considered a once-in-a-lifetime experience?", "Yes, for many Hindus, attending the Mahakumbh Mela is considered a once-in-a-lifetime spiritual pilgrimage."),
         ("Can non-Hindus attend the Mahakumbh Mela?", "Absolutely, the Mahakumbh Mela is open to everyone, regardless of their religion or background.")
     ]
-
+    
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                // Scrollable image cards
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 15) {
-                        ForEach(imageCards, id: \.self) { imageName in
-                            Image(imageName)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 300, height: 200)
-                                .clipped()
-                                .cornerRadius(15)
-                                .shadow(radius: 5)
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-                
-                // Title
-                Text("Spiritual Significance of Mahakumbh")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.top, 20)
-
-                // Collapsible questions
-                ForEach(0..<questionsAndAnswers.count, id: \.self) { index in
-                    VStack(alignment: .leading, spacing: 10) {
-                        Button(action: {
-                            withAnimation {
-                                selectedQuestion = (selectedQuestion == index) ? nil : index
+        ZStack {
+            // Background gradient with predefined colors
+            LinearGradient(
+                gradient: Gradient(colors: [Color.orange.opacity(0.2), Color.yellow.opacity(0.3)]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .edgesIgnoringSafeArea(.all)
+            ScrollView {
+                VStack(spacing: 20) {
+                    // Scrollable image cards
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 15) {
+                            ForEach(imageCards, id: \.self) { imageName in
+                                Image(imageName)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 300, height: 200)
+                                    .clipped()
+                                    .cornerRadius(15)
+                                    .shadow(radius: 5)
                             }
-                        }) {
-                            HStack {
-                                Text(questionsAndAnswers[index].0)
-                                    .font(.headline)
-                                    .foregroundColor(.primary)
-                                Spacer()
-                                Image(systemName: selectedQuestion == index ? "chevron.up" : "chevron.down")
-                                    .foregroundColor(.gray)
-                            }
-                            .padding(.vertical, 10)
                         }
-                        
-                        // Display the answer if the question is selected
-                        if selectedQuestion == index {
-                            Text(questionsAndAnswers[index].1)
-                                .font(.body)
-                                .foregroundColor(.secondary)
-                                .padding(.bottom, 10)
-                        }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
-                    .background(Color(UIColor.systemGray6))
-                    .cornerRadius(10)
-                    .padding(.vertical, 5)
+                    
+                    // Title
+                    Text("Spiritual Significance of Mahakumbh")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.top, 20)
+                    
+                    // Collapsible questions
+                    ForEach(0..<questionsAndAnswers.count, id: \.self) { index in
+                        VStack(alignment: .leading, spacing: 10) {
+                            Button(action: {
+                                withAnimation {
+                                    selectedQuestion = (selectedQuestion == index) ? nil : index
+                                }
+                            }) {
+                                HStack {
+                                    Text(questionsAndAnswers[index].0)
+                                        .font(.headline)
+                                        .foregroundColor(.primary)
+                                    Spacer()
+                                    Image(systemName: selectedQuestion == index ? "chevron.up" : "chevron.down")
+                                        .foregroundColor(.gray)
+                                }
+                                .padding(.vertical, 10)
+                            }
+                            
+                            // Display the answer if the question is selected
+                            if selectedQuestion == index {
+                                Text(questionsAndAnswers[index].1)
+                                    .font(.body)
+                                    .foregroundColor(.secondary)
+                                    .padding(.bottom, 10)
+                            }
+                        }
+                        .padding(.horizontal)
+                        .background(Color(UIColor.systemGray6))
+                        .cornerRadius(10)
+                        .padding(.vertical, 5)
+                    }
+                    
+                    Spacer()
                 }
-                
-                Spacer()
+                .padding(.top)
             }
-            .padding(.top)
+            .navigationTitle("Spiritual Significance")
         }
-        .navigationTitle("Spiritual Significance")
     }
-}
-
-struct SpiritualSourceDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        SpiritualDestinationView()
+    
+    struct SpiritualSourceDetailView_Previews: PreviewProvider {
+        static var previews: some View {
+            SpiritualDestinationView()
+        }
     }
+    
 }
-

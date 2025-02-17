@@ -21,7 +21,7 @@ struct WelcomeScreen: View {
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
                             .padding()
-                            .background(Color.blue)
+                            .background(Color(red: 230/255, green: 81/255, blue: 0/255)) // Deep Orange
                             .cornerRadius(10)
                             .shadow(radius: 10)
                             .padding(.bottom, 30)

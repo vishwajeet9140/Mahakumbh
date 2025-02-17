@@ -6,19 +6,16 @@ struct HomeScreen: View {
             ZStack {
                 // Background color or holy-themed gradient
                 LinearGradient(
-                    gradient: Gradient(colors: [Color("Saffron"), Color("Gold")]),
+                    gradient: Gradient(colors: [Color.orange.opacity(0.3), Color.yellow.opacity(0.2)]),
                     startPoint: .top,
                     endPoint: .bottom
                 )
                 .edgesIgnoringSafeArea(.all)
+
                 
                 VStack(spacing: 20) {
                     // Header with app name or welcome message
-                    Text("Mahakumbh 2025")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding(.top, 20)
+                    
                     
                     // Grid-based layout for key information (history, events, significance)
                     VStack(spacing: 30) {
@@ -71,7 +68,7 @@ struct infoCard: View {
             Spacer()
         }
         .padding()
-        .background(Color.blue)
+        .background(Color(red: 230/255, green: 81/255, blue: 0/255)) // Deep Orange
         .cornerRadius(15)
         .shadow(radius: 10)
     }
