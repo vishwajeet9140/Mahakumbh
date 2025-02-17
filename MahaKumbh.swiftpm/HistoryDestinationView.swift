@@ -85,7 +85,9 @@ struct HistoryDestinationView: View {
                             }
                         }
                         .padding(.horizontal)
-                        .background(Color(UIColor.systemGray6))
+                        .background(Color.brown.opacity(0.3)) // Semi-transparent white
+
+
                         .cornerRadius(10)
                         .padding(.vertical, 5)
                     }

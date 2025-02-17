@@ -78,7 +78,7 @@ struct SpiritualDestinationView: View {
                             }
                         }
                         .padding(.horizontal)
-                        .background(Color(UIColor.systemGray6))
+                        .background(Color.brown.opacity(0.3))
                         .cornerRadius(10)
                         .padding(.vertical, 5)
                     }
