@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HistoryDestinationView: View {
     @State private var selectedQuestion: Int? = nil
-    let imageCards = ["histo4", "histo2", "histo3",]
+    let imageCards = ["histo4", "histo2", "histo3","h2","h1"]
     
     let questionsAndAnswers = [
         ("The Ancient Origins", "The Mahakumbh Mela traces its origins back to the Samudra Manthan, the churning of the ocean in search of Amrit (nectar of immortality). During this event, nectar drops fell on four sacred locations on Earth: Prayagraj, Haridwar, Nashik, and Ujjain. Bathing at these sites during Kumbh Mela is believed to cleanse sins and lead to spiritual liberation."),
