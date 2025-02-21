@@ -11,7 +11,7 @@ struct EventsDestinationView: View {
     
     // Array of future Mahakumbh and Kumbh events
     let events: [Event] = [
-        Event(title: "Mahakumbh Mela", date: "2025", location: "Prayagraj", details: "The 2025 Mahakumbh in Prayagraj is a rare spiritual gathering, occurring every 12 years,with this one marking 144 years since the last."),
+        Event(title: "Mahakumbh Mela", date: "2025", location: "Prayagraj", details: "The 2025 Mahakumbh in Prayagraj is a rare, sacred gathering, held every 12 years, marking 144 years since the last."),
         Event(title: "Kumbh Mela", date: "2027", location: "Haridwar", details: "The next Kumbh will take place in 2027 in Haridwar. It is a major pilgrimage where millions gather to bathe in the Ganges."),
         Event(title: "Ardh Kumbh Mela", date: "2030", location: "Nashik", details: "The Ardh Kumbh Mela happens every 6 years. In 2030, it will be held in Nashik."),
     ]

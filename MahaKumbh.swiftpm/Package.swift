@@ -17,6 +17,7 @@ let package = Package(
             name: "MahaKumbh",
             targets: ["AppModule"],
             bundleIdentifier: "galgotiasuniversityisdp.MahaKumbh",
+            teamIdentifier: "VWHS8QVPVW",
             displayVersion: "1.0",
             bundleVersion: "1",
             appIcon: .placeholder(icon: .earth),
