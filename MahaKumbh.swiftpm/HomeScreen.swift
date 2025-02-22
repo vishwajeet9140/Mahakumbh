@@ -1,94 +1,161 @@
 import SwiftUI
 
 struct HomeScreen: View {
+    @State private var isAnimating = false
+    @State private var titleScale: CGFloat = 0.8
+    @State private var titleOpacity = 0.0
+    @State private var cardOpacity = 0.0
+    @State private var titleRotation: CGFloat = -10
+    @State private var circleScale: CGFloat = 0.8
+    
     var body: some View {
-        ZStack {
-            // Background gradient remains the same
-            LinearGradient(
-                gradient: Gradient(colors: [Color.orange.opacity(0.3), Color.yellow.opacity(0.2)]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .edgesIgnoringSafeArea(.all)
-            
-            VStack(spacing: 30) {
-                // Enhanced title section
-                VStack(spacing: 8) {
-                    Text("महाकुंभ")
-                        .font(.system(size: 42, weight: .bold, design: .rounded))
-                        .foregroundColor(.black)
-                    
-                    Text("MAHAKUMBH")
-                        .font(.system(size: 20, weight: .medium, design: .rounded))
-                        .foregroundColor(.black.opacity(0.7))
-                        .tracking(4) // Letter spacing
+        
+            ZStack {
+                // Enhanced animated background
+                LinearGradient(
+                    gradient: Gradient(colors: [
+                        Color(red: 230/255, green: 81/255, blue: 0/255).opacity(0.3),
+                        Color.orange.opacity(0.2),
+                        Color.yellow.opacity(0.2)
+                    ]),
+                    startPoint: isAnimating ? .topLeading : .bottomTrailing,
+                    endPoint: isAnimating ? .bottomTrailing : .topLeading
+                )
+                .edgesIgnoringSafeArea(.all)
+                .animation(.easeInOut(duration: 5).repeatForever(autoreverses: true), value: isAnimating)
+                .onAppear { isAnimating = true }
+                
+                ScrollView {
+                    VStack(spacing: 35) {
+                        // Enhanced title section with sacred elements
+                        ZStack {
+                            // Animated decorative circles
+                            Circle()
+                                .fill(Color.orange.opacity(0.15))
+                                .frame(width: 200, height: 200)
+                                .scaleEffect(circleScale)
+                                .offset(x: -100, y: -30)
+                            
+                            Circle()
+                                .fill(Color.yellow.opacity(0.15))
+                                .frame(width: 150, height: 150)
+                                .scaleEffect(circleScale)
+                                .offset(x: 80, y: 20)
+                            
+                            VStack(spacing: 20) {
+                                // Sacred symbol
+                                Image(systemName: "sparkles")
+                                    .font(.system(size: 40))
+                                    .foregroundColor(.orange)
+                                    .opacity(0.8)
+                                
+                                Text("महाकुंभ")
+                                    .font(.system(size: 56, weight: .bold, design: .serif))
+                                    .foregroundColor(.black)
+                                    .shadow(color: .orange.opacity(0.5), radius: 5)
+                                    .rotationEffect(.degrees(Double(titleRotation)))
+                                
+                                Text("MAHAKUMBH")
+                                    .font(.system(size: 32, weight: .medium, design: .serif))
+                                    .foregroundColor(.black.opacity(0.8))
+                                    .tracking(12)
+                                    .shadow(color: .orange.opacity(0.3), radius: 3)
+                                
+                                Text("Sacred Gathering of Faith")
+                                    .font(.system(size: 22, design: .serif))
+                                    .foregroundColor(.secondary)
+                                    .italic()
+                                    .padding(.top, 5)
+                            }
+                        }
+                        .scaleEffect(titleScale)
+                        .opacity(titleOpacity)
+                        .onAppear {
+                            withAnimation(.spring(response: 0.8, dampingFraction: 0.6)) {
+                                titleScale = 1
+                                titleOpacity = 1
+                                circleScale = 1
+                                titleRotation = 0
+                            }
+                        }
+                        .padding(.top, 60)
+                        
+                        // Enhanced navigation cards with increased spacing
+                        VStack(spacing: 25) {
+                            NavigationLink(destination: HistoryDestinationView()) {
+                                HomeCard(
+                                    title: "History of Mahakumbh",
+                                    description: "Explore the ancient stories and sacred traditions.",
+                                    imageName: "book.circle.fill",
+                                    index: 0
+                                )
+                            }
+                            
+                            NavigationLink(destination: EventsDestinationView()) {
+                                HomeCard(
+                                    title: "Sacred Events",
+                                    description: "Discover upcoming Mahakumbh celebrations.",
+                                    imageName: "calendar.circle.fill",
+                                    index: 1
+                                )
+                            }
+                            
+                            NavigationLink(destination: SpiritualDestinationView()) {
+                                HomeCard(
+                                    title: "Divine Journey",
+                                    description: "Experience the spiritual essence of Mahakumbh.",
+                                    imageName: "flame.circle.fill",
+                                    index: 2
+                                )
+                            }
+                        }
+                        .padding(.horizontal)
+                        .padding(.bottom, 30)
+                    }
                 }
-                .padding(.top, 50)
-                .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 2)
-                
-                // Subtitle
-                Text("Sacred Gathering of Faith")
-                    .font(.system(size: 16, weight: .regular, design: .rounded))
-                    .foregroundColor(.black.opacity(0.6))
-                    .italic()
-                
-                // Grid-based layout for key information
-                VStack(spacing: 20) {
-                    NavigationLink(destination: HistoryDestinationView()) {
-                        infoCard(title: "History of Mahakumbh", description: "Discover the ancient stories behind the sacred gathering.", imageName: "book.fill")
-                    }
-                    
-                    NavigationLink(destination: EventsDestinationView()) {
-                        infoCard(title: "Upcoming Events", description: "Get details about the upcoming Mahakumbh events.", imageName: "calendar.circle.fill")
-                    }
-                    
-                    NavigationLink(destination: SpiritualDestinationView()) {
-                        infoCard(title: "Spiritual Significance", description: "Learn about the spiritual importance of Mahakumbh.", imageName: "leaf.fill")
-                    }
-                }
-                .padding(.horizontal, 20)
-                
-                Spacer()
             }
             .navigationBarHidden(true)
         }
     }
-}
-// Helper view for information cards
-struct infoCard: View {
+
+
+// Enhanced card component
+struct HomeCard: View {
     let title: String
     let description: String
     let imageName: String
+    let index: Int
+    @State private var opacity = 0.0
+    @State private var offset: CGFloat = 50
     
     var body: some View {
         HStack(spacing: 16) {
-            // Icon with glass effect background
             Image(systemName: imageName)
-                .font(.system(size: 24))
+                .font(.system(size: 30))
                 .foregroundColor(.white)
-                .frame(width: 50, height: 50)
+                .frame(width: 60, height: 60)
                 .background(.ultraThinMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .clipShape(Circle())
+                .shadow(color: .white.opacity(0.3), radius: 5)
             
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 6) {
                 Text(title)
-                    .font(.system(size: 17, weight: .semibold))
+                    .font(.headline)
                     .foregroundColor(.white)
                 Text(description)
-                    .font(.system(size: 14))
+                    .font(.subheadline)
                     .foregroundColor(.white.opacity(0.9))
                     .lineLimit(2)
-                    .multilineTextAlignment(.leading)
             }
             
             Spacer()
             
             Image(systemName: "chevron.right")
                 .foregroundColor(.white.opacity(0.7))
-                .font(.system(size: 14, weight: .semibold))
+                .font(.system(size: 14, weight: .bold))
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 14)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 16)
         .background(
             LinearGradient(
                 gradient: Gradient(colors: [
@@ -99,61 +166,17 @@ struct infoCard: View {
                 endPoint: .trailing
             )
         )
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
-    }
-}
-
-
-// Detail views for each section
-struct HistoryDetailSourceView: View {
-    var body: some View {
-        VStack {
-            Text("History of Mahakumbh")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            Text("Here you'll find detailed history of the Mahakumbh festival, its origins, and significance.")
-                .padding()
-            Spacer()
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .shadow(color: Color.black.opacity(0.15), radius: 15, x: 0, y: 5)
+        .opacity(opacity)
+        .offset(x: offset)
+        .onAppear {
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.7).delay(Double(index) * 0.2)) {
+                opacity = 1
+                offset = 0
+            }
         }
-        .navigationTitle("History")
-        .padding()
     }
 }
 
-struct EventsDetailSourceView : View {
-    var body: some View {
-        VStack {
-            Text(" Events")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            Text("Find out about all the major events happening during the Mahakumbh.")
-                .padding()
-            Spacer()
-        }
-        .navigationTitle("Events")
-        .padding()
-    }
-}
-
-struct SpiritualSourceDetailView: View {
-    var body: some View {
-        VStack {
-            Text("Spiritual Significance")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            Text("Learn about the deep spiritual importance of the Mahakumbh.")
-                .padding()
-            Spacer()
-        }
-        .navigationTitle("Spiritual Significance")
-        .padding()
-    }
-}
-
-struct WelcomeScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeScreen()
-    }
-}
-
+// Remove the unused detail views
