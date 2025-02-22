@@ -2,14 +2,16 @@ import SwiftUI
 
 struct HistoryDestinationView: View {
     @State private var selectedQuestion: Int? = nil
-    @State private var currentImage = 0
+    @State private var Currentimage = 0
+    
     @State private var isAnimating = false
-    @State private var titleOpacity = 0.0
+    @State private var TitleOpacity = 0.0
+    
     @State private var cardOpacity = 0.0
     @State private var iconScale = 1.0
     
     
-    let imagecards = ["histo4", "histo2","histo1", "histo3", "h2", "h1"]
+    let imagecards = ["histo4", "histo2", "histo1", "histo3",   "h2",  "h1"]
     
     
     let questionsAndAnswers = [
@@ -40,13 +42,14 @@ struct HistoryDestinationView: View {
                 VStack(spacing: 25) {
                     
                     TimelineView(.animation(minimumInterval: 3)) { timeline in
-                        TabView(selection: $currentImage) {
+                        TabView(selection: $Currentimage) {
                             ForEach(0..<imagecards.count, id: \.self) { index in
                                 Image(imagecards[index])
                                     .resizable()
                                     .scaledToFill()
                                     .frame(height: 250)
                                     .clipped()
+                                
                                     .cornerRadius(20)
                                     .overlay(
                                         LinearGradient(
@@ -67,17 +70,17 @@ struct HistoryDestinationView: View {
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                         .onChange(of: timeline.date) { _ in
                             withAnimation {
-                                currentImage = (currentImage + 1) % imagecards.count
+                                Currentimage = (Currentimage + 1) % imagecards.count
                             }
                         }
                     }
-                    
-                    
+                
                     VStack(spacing: 15) {
                                             Image(systemName: "book.circle.fill")
                                                 .font(.system(size: 44))
                                                 .foregroundColor(.orange)
                                                 .scaleEffect(iconScale)
+                        
                                                 .onAppear {
                                                     withAnimation(
                                                         .easeInOut(duration: 1)
@@ -86,9 +89,8 @@ struct HistoryDestinationView: View {
                                                         iconScale = 1.2
                                                     }
                                                 }
-                                            
-                                           
-                                            Text("Sacred History")
+                        
+                                        Text("Sacred History")
                                                 .font(.system(size: 38, weight: .bold, design: .serif))
                                                 .foregroundColor(.brown)
                                             
@@ -97,10 +99,11 @@ struct HistoryDestinationView: View {
                                                 .foregroundColor(.secondary)
                                                 .italic()
                                         }
-                                        .opacity(titleOpacity)
+                    
+                                        .opacity(TitleOpacity)
                                         .onAppear {
                                             withAnimation(.easeIn(duration: 1)) {
-                                                titleOpacity = 1
+                                                TitleOpacity = 1
                                             }
                                         }
 
@@ -111,12 +114,14 @@ struct HistoryDestinationView: View {
                             title: questionsAndAnswers[index].0,
                             content: questionsAndAnswers[index].1,
                             isSelected: selectedQuestion == index
+                            
                         ) {
                             withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
                                 selectedQuestion = selectedQuestion == index ? nil : index
                             }
                         }
                         .opacity(cardOpacity)
+                        
                         .onAppear {
                             withAnimation(.easeIn(duration: 0.6).delay(Double(index) * 0.2)) {
                                 cardOpacity = 1
@@ -125,7 +130,10 @@ struct HistoryDestinationView: View {
                     }
                 }
                 .padding(.top)
+                
             }
+            
+            
             .navigationBarTitle("Sacred History", displayMode: .large)
         }
     }

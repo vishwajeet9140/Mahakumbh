@@ -2,14 +2,17 @@ import SwiftUI
 struct SpiritualDestinationView: View {
     @State private var selectedQuestion: Int? = nil
     
-       @State private var currentImageIndex = 0
+       @State private var CurrentimageIndex = 0
        @State private var isAnimating = false
-       @State private var titleOpacity = 0.0
+    
+       @State private var TitleOpacity = 0.0
+    
        @State private var cardOpacity = 0.0
     
-       @State private var iconScale = 1.0
+       @State private var Iconscale = 1.0
        
     let imageCards = ["spritiual1", "spritiual2", "spritiual3"]
+    
     
     let questionsAndAnswers = [
             ("Why do so many people gather at the Mahakumbh Mela?", "Millions of people attend the Mahakumbh Mela because it is considered the most spiritually significant gathering in Hinduism. According to Hindu mythology, it is believed that the holy rivers, especially the Ganges, have the power to cleanse individuals of their sins, offering them a chance for spiritual purification. The gathering also allows people to receive blessings from saints and gurus, making it an auspicious event for all who participate."),
@@ -44,7 +47,7 @@ struct SpiritualDestinationView: View {
                     VStack(spacing: 25) {
                        
                         TimelineView(.animation(minimumInterval: 3)) { timeline in
-                            TabView(selection: $currentImageIndex) {
+                            TabView(selection: $CurrentimageIndex) {
                                 ForEach(0..<imageCards.count, id: \.self) { index in
                                     Image(imageCards[index])
                                         .resizable()
@@ -71,7 +74,7 @@ struct SpiritualDestinationView: View {
                             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                             .onChange(of: timeline.date) { _ in
                                 withAnimation {
-                                    currentImageIndex = (currentImageIndex + 1) % imageCards.count
+                                    CurrentimageIndex = (CurrentimageIndex + 1) % imageCards.count
                                 }
                             }
                         }
@@ -83,13 +86,13 @@ struct SpiritualDestinationView: View {
                                 .font(.system(size: 40))
                                 .font(.system(size: 44))
                                 .foregroundColor(.orange)
-                                .scaleEffect(iconScale)
+                                .scaleEffect(Iconscale)
                                 .onAppear {
                                     withAnimation(
                                         .easeInOut(duration: 1)
                                         .repeatForever(autoreverses: true)
                                     ) {
-                                        iconScale = 1.2
+                                        Iconscale = 1.2
                                     }
                                 }
                             
@@ -104,10 +107,10 @@ struct SpiritualDestinationView: View {
                                 .foregroundColor(.secondary)
                                 .italic()
                         }
-                        .opacity(titleOpacity)
+                        .opacity(TitleOpacity)
                         .onAppear {
                             withAnimation(.easeIn(duration: 1)) {
-                                titleOpacity = 1
+                                TitleOpacity = 1
                             }
                         }
                         
@@ -143,7 +146,9 @@ struct SpiritualDestinationView: View {
 struct SpiritualCard: View {
     let question: String
     let answer: String
+    
     let isSelected: Bool
+    
     let action: () -> Void
     
     var body: some View {
