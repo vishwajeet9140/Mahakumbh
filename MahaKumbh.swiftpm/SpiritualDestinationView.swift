@@ -1,17 +1,16 @@
 import SwiftUI
-
 struct SpiritualDestinationView: View {
     @State private var selectedQuestion: Int? = nil
+    
        @State private var currentImageIndex = 0
        @State private var isAnimating = false
        @State private var titleOpacity = 0.0
        @State private var cardOpacity = 0.0
+    
        @State private var iconScale = 1.0
        
-
-    
     let imageCards = ["spritiual1", "spritiual2", "spritiual3"]
-    // Your questionsAndAnswers array remains the same
+    
     let questionsAndAnswers = [
             ("Why do so many people gather at the Mahakumbh Mela?", "Millions of people attend the Mahakumbh Mela because it is considered the most spiritually significant gathering in Hinduism. According to Hindu mythology, it is believed that the holy rivers, especially the Ganges, have the power to cleanse individuals of their sins, offering them a chance for spiritual purification. The gathering also allows people to receive blessings from saints and gurus, making it an auspicious event for all who participate."),
             ("What makes bathing in the Ganges during Mahakumbh so special?", "Bathing in the Ganges during Mahakumbh is believed to wash away one's sins and purify the soul. This belief is deeply rooted in Hindu mythology, which says that the gods spilled drops of nectar of immortality (Amrit) into the river, making the waters sacred. Bathing at this time, when specific celestial alignments occur, is believed to enhance the spiritual benefits and lead to salvation (moksha)."),
@@ -27,7 +26,7 @@ struct SpiritualDestinationView: View {
     
     var body: some View {
             ZStack {
-                // Enhanced animated background gradient
+               
                 LinearGradient(
                     gradient: Gradient(colors: [
                         Color(red: 230/255, green: 81/255, blue: 0/255).opacity(0.3),
@@ -43,7 +42,7 @@ struct SpiritualDestinationView: View {
                 
                 ScrollView {
                     VStack(spacing: 25) {
-                        // Enhanced image carousel with TimelineView
+                       
                         TimelineView(.animation(minimumInterval: 3)) { timeline in
                             TabView(selection: $currentImageIndex) {
                                 ForEach(0..<imageCards.count, id: \.self) { index in
@@ -77,7 +76,8 @@ struct SpiritualDestinationView: View {
                             }
                         }
                         
-                        // Enhanced title section with animations
+                        
+                      
                         VStack(spacing: 15) {
                             Text("🕉")
                                 .font(.system(size: 40))
@@ -92,6 +92,8 @@ struct SpiritualDestinationView: View {
                                         iconScale = 1.2
                                     }
                                 }
+                            
+                            
                             
                             Text("Spiritual Journey")
                                 .font(.system(size: 38, weight: .bold, design: .serif))
@@ -109,7 +111,8 @@ struct SpiritualDestinationView: View {
                             }
                         }
                         
-                        // Enhanced spiritual cards
+                        
+                        
                         ForEach(0..<questionsAndAnswers.count, id: \.self) { index in
                             SpiritualCard(
                                 question: questionsAndAnswers[index].0,
@@ -136,7 +139,7 @@ struct SpiritualDestinationView: View {
     }
 
 
-// Enhanced card component for spiritual questions
+
 struct SpiritualCard: View {
     let question: String
     let answer: String
@@ -158,18 +161,24 @@ struct SpiritualCard: View {
                 .padding(.vertical, 10)
             }
             
+            
             if isSelected {
                 Text(answer)
                     .font(.body)
                     .foregroundColor(.secondary)
+                
+                
                     .padding(.bottom, 10)
                     .transition(.opacity.combined(with: .slide))
             }
         }
         .padding()
         .background(
+            
             RoundedRectangle(cornerRadius: 15)
                 .fill(Color.brown.opacity(0.2))
+            
+            
                 .shadow(color: .orange.opacity(0.2), radius: 10, x: 0, y: 5)
         )
         .scaleEffect(isSelected ? 1.02 : 1.0)
@@ -178,5 +187,4 @@ struct SpiritualCard: View {
     }
 }
 
-// Preview remains the same
 

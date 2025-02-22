@@ -1,23 +1,25 @@
 import SwiftUI
-
 struct HomeScreen: View {
     @State private var isAnimating = false
     @State private var titleScale: CGFloat = 0.8
     @State private var titleOpacity = 0.0
     @State private var cardOpacity = 0.0
+    
+    
     @State private var titleRotation: CGFloat = -10
     @State private var circleScale: CGFloat = 0.8
     
     var body: some View {
         
             ZStack {
-                // Enhanced animated background
                 LinearGradient(
                     gradient: Gradient(colors: [
                         Color(red: 230/255, green: 81/255, blue: 0/255).opacity(0.3),
                         Color.orange.opacity(0.2),
                         Color.yellow.opacity(0.2)
                     ]),
+                    
+                    
                     startPoint: isAnimating ? .topLeading : .bottomTrailing,
                     endPoint: isAnimating ? .bottomTrailing : .topLeading
                 )
@@ -27,9 +29,8 @@ struct HomeScreen: View {
                 
                 ScrollView {
                     VStack(spacing: 35) {
-                        // Enhanced title section with sacred elements
-                        ZStack {
-                            // Animated decorative circles
+                       ZStack {
+                            
                             Circle()
                                 .fill(Color.orange.opacity(0.15))
                                 .frame(width: 200, height: 200)
@@ -43,7 +44,7 @@ struct HomeScreen: View {
                                 .offset(x: 80, y: 20)
                             
                             VStack(spacing: 20) {
-                                // Sacred symbol
+                            
                                 Image(systemName: "sparkles")
                                     .font(.system(size: 40))
                                     .foregroundColor(.orange)
@@ -80,7 +81,7 @@ struct HomeScreen: View {
                         }
                         .padding(.top, 60)
                         
-                        // Enhanced navigation cards with increased spacing
+                        
                         VStack(spacing: 25) {
                             NavigationLink(destination: HistoryDestinationView()) {
                                 HomeCard(
@@ -119,12 +120,13 @@ struct HomeScreen: View {
     }
 
 
-// Enhanced card component
 struct HomeCard: View {
     let title: String
     let description: String
     let imageName: String
     let index: Int
+    
+    
     @State private var opacity = 0.0
     @State private var offset: CGFloat = 50
     
@@ -140,6 +142,7 @@ struct HomeCard: View {
             
             VStack(alignment: .leading, spacing: 6) {
                 Text(title)
+                
                     .font(.headline)
                     .foregroundColor(.white)
                 Text(description)
@@ -154,6 +157,8 @@ struct HomeCard: View {
                 .foregroundColor(.white.opacity(0.7))
                 .font(.system(size: 14, weight: .bold))
         }
+        
+        
         .padding(.horizontal, 20)
         .padding(.vertical, 16)
         .background(
@@ -163,6 +168,7 @@ struct HomeCard: View {
                     Color(red: 230/255, green: 81/255, blue: 0/255).opacity(0.8)
                 ]),
                 startPoint: .leading,
+                
                 endPoint: .trailing
             )
         )
@@ -170,13 +176,15 @@ struct HomeCard: View {
         .shadow(color: Color.black.opacity(0.15), radius: 15, x: 0, y: 5)
         .opacity(opacity)
         .offset(x: offset)
+        
         .onAppear {
             withAnimation(.spring(response: 0.6, dampingFraction: 0.7).delay(Double(index) * 0.2)) {
                 opacity = 1
+                
+                
                 offset = 0
             }
         }
     }
 }
 
-// Remove the unused detail views

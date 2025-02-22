@@ -1,7 +1,6 @@
 import SwiftUI
 
-// History card component
-struct HistoryCard: View {
+struct Historycard: View {
     let title: String
     let content: String
     let isSelected: Bool
@@ -42,4 +41,4 @@ struct HistoryCard: View {
     }
 }
 
-// End of file
+

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct WelcomeScreen: View {
-    // Your state properties
+
     @State private var titleOffset: CGFloat = -50
     @State private var buttonScale: CGFloat = 0.1
     @State private var overlayOpacity: Double = 0
@@ -10,7 +10,7 @@ struct WelcomeScreen: View {
     var body: some View {
         NavigationView {
             ZStack {
-                // Sacred background with gradient overlay
+                
                 Image("mahakumbh")
                     .resizable()
                     .scaledToFill()
@@ -30,7 +30,7 @@ struct WelcomeScreen: View {
                 VStack(spacing: 30) {
                     Spacer()
                     
-                    // Title stack with enhanced typography
+                   
                     VStack(spacing: 20) {
                         Text("महाक\u{941}\u{902}भ")
                             .font(.system(size: 64, weight: .bold))
@@ -51,7 +51,7 @@ struct WelcomeScreen: View {
                         }
                     }
                     
-                    // Subtitle with fade-in
+                 
                     Text("A Divine Convergence of Faith")
                         .font(.system(size: 20, design: .serif))
                         .foregroundColor(.white.opacity(0.8))
@@ -65,7 +65,7 @@ struct WelcomeScreen: View {
                     
                     Spacer()
                     
-                    // Enhanced journey button
+                    
                     NavigationLink(destination: HomeScreen()) {
                         HStack(spacing: 15) {
                             Image(systemName: "sparkles")
@@ -86,10 +86,11 @@ struct WelcomeScreen: View {
                                         Color(red: 230/255, green: 81/255, blue: 0/255).opacity(0.8)
                                     ]),
                                     startPoint: .leading,
+                                    
                                     endPoint: .trailing
                                 )
                                 
-                                // Button glow effect
+                                
                                 RoundedRectangle(cornerRadius: 30)
                                     .stroke(Color.white.opacity(0.3), lineWidth: 1)
                                     .blur(radius: 1)
@@ -100,6 +101,8 @@ struct WelcomeScreen: View {
                         .scaleEffect(buttonScale)
                         .onAppear {
                             withAnimation(.spring(response: 0.8, dampingFraction: 0.6).delay(1)) {
+                                
+                                
                                 buttonScale = 1
                             }
                         }
@@ -111,4 +114,4 @@ struct WelcomeScreen: View {
     }
 }
 
-// End of file
+

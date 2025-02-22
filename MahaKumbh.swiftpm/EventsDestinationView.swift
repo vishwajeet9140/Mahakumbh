@@ -5,7 +5,9 @@ struct Event: Identifiable {
     let title: String
     let date: String
     let location: String
+    
     let details: String
+    
     let imageName: String
 }
 
@@ -15,7 +17,7 @@ struct EventsDestinationView: View {
     @State private var titleScale: CGFloat = 0.8
     @State private var cardOpacity = 0.0
     
-    // Enhanced events array remains the same
+    
     let events: [Event] = [
         Event(title: "Mahakumbh Mela", date: "2025", location: "Prayagraj",
               details: "The 2025 Mahakumbh in Prayagraj is a rare, sacred gathering, held every 12 years, marking 144 years since the last. This grand spiritual congregation attracts millions of devotees from around the world for a divine experience.",
@@ -30,7 +32,7 @@ struct EventsDestinationView: View {
     
     var body: some View {
         ZStack {
-            // Enhanced animated background
+          
             LinearGradient(
                 gradient: Gradient(colors: [
                     Color(red: 230/255, green: 81/255, blue: 0/255).opacity(0.3),
@@ -46,7 +48,7 @@ struct EventsDestinationView: View {
             
             ScrollView {
                 VStack(spacing: 30) {
-                    // Enhanced title section with animations
+                   
                     VStack(spacing: 15) {
                         Image(systemName: "calendar.circle.fill")
                             .font(.system(size: 44))
@@ -71,7 +73,7 @@ struct EventsDestinationView: View {
                     }
                     .padding(.top, 20)
                     
-                    // Enhanced event cards with staggered animation
+                   
                     ForEach(Array(events.enumerated()), id: \.element.id) { index, event in
                         EventCard(event: event, isSelected: selectedEvent?.id == event.id)
                             .onTapGesture {
@@ -94,15 +96,14 @@ struct EventsDestinationView: View {
     }
 }
 
-// Enhanced card view for events
-// Enhanced card view for events
+
 struct EventCard: View {
     let event: Event
     let isSelected: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
-            // Event image with enhanced overlay
+            
             Image(event.imageName)
                 .resizable()
                 .scaledToFill()
@@ -123,7 +124,7 @@ struct EventCard: View {
                 )
                 .shadow(color: .black.opacity(0.3), radius: 15)
             
-            // Enhanced event details with tap indicator
+            
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Text(event.title)
@@ -132,7 +133,7 @@ struct EventCard: View {
                     
                     Spacer()
                     
-                    // Add chevron indicator
+                    
                     Image(systemName: isSelected ? "chevron.up.circle.fill" : "chevron.down.circle.fill")
                         .foregroundColor(.orange)
                         .imageScale(.large)
@@ -156,7 +157,7 @@ struct EventCard: View {
                         .transition(.opacity.combined(with: .slide))
                 }
                 
-                // Add tap hint when not selected
+              
                 if !isSelected {
                     Text("Tap to see details")
                         .font(.caption)
@@ -174,9 +175,9 @@ struct EventCard: View {
                 .shadow(color: .orange.opacity(0.2), radius: 15, x: 0, y: 8)
         )
         .scaleEffect(isSelected ? 1.02 : 1.0)
+        
+        
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isSelected)
     }
 }
 
-// Rest of the file remains the same
-// End of file

@@ -9,9 +9,9 @@ struct HistoryDestinationView: View {
     @State private var iconScale = 1.0
     
     
-    let imageCards = ["histo4", "histo2","histo1", "histo3", "h2", "h1"]
+    let imagecards = ["histo4", "histo2","histo1", "histo3", "h2", "h1"]
     
-    // Your questionsAndAnswers array remains the ame
+    
     let questionsAndAnswers = [
             ("The Ancient Origins", "The Mahakumbh Mela traces its origins back to the Samudra Manthan, the churning of the ocean in search of Amrit (nectar of immortality). During this event, nectar drops fell on four sacred locations on Earth: Prayagraj, Haridwar, Nashik, and Ujjain. Bathing at these sites during Kumbh Mela is believed to cleanse sins and lead to spiritual liberation."),
             ("Early Historical References", "Hindu scriptures mention ritual bathing near rivers. Early references appear in the Rigveda, and later texts like the Mahabharata and Puranas, which elaborate on the tradition of bathing during auspicious times, marking the early roots of the Kumbh Mela."),
@@ -22,7 +22,7 @@ struct HistoryDestinationView: View {
         ]
     var body: some View {
         ZStack {
-            // Enhanced animated background gradient
+            
             LinearGradient(
                 gradient: Gradient(colors: [
                     Color(red: 230/255, green: 81/255, blue: 0/255).opacity(0.3),
@@ -38,11 +38,11 @@ struct HistoryDestinationView: View {
             
             ScrollView {
                 VStack(spacing: 25) {
-                    // Enhanced image carousel with TimelineView
+                    
                     TimelineView(.animation(minimumInterval: 3)) { timeline in
                         TabView(selection: $currentImage) {
-                            ForEach(0..<imageCards.count, id: \.self) { index in
-                                Image(imageCards[index])
+                            ForEach(0..<imagecards.count, id: \.self) { index in
+                                Image(imagecards[index])
                                     .resizable()
                                     .scaledToFill()
                                     .frame(height: 250)
@@ -67,12 +67,12 @@ struct HistoryDestinationView: View {
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                         .onChange(of: timeline.date) { _ in
                             withAnimation {
-                                currentImage = (currentImage + 1) % imageCards.count
+                                currentImage = (currentImage + 1) % imagecards.count
                             }
                         }
                     }
                     
-                    // Enhanced title section
+                    
                     VStack(spacing: 15) {
                                             Image(systemName: "book.circle.fill")
                                                 .font(.system(size: 44))
@@ -87,7 +87,7 @@ struct HistoryDestinationView: View {
                                                     }
                                                 }
                                             
-                                            // Rest of your title section remains the same
+                                           
                                             Text("Sacred History")
                                                 .font(.system(size: 38, weight: .bold, design: .serif))
                                                 .foregroundColor(.brown)
@@ -105,9 +105,9 @@ struct HistoryDestinationView: View {
                                         }
 
                     
-                    // Enhanced history cards
+                 
                     ForEach(0..<questionsAndAnswers.count, id: \.self) { index in
-                        HistoryCard(
+                        Historycard(
                             title: questionsAndAnswers[index].0,
                             content: questionsAndAnswers[index].1,
                             isSelected: selectedQuestion == index
@@ -131,5 +131,5 @@ struct HistoryDestinationView: View {
     }
 }
 
-// History card component remains the same
+
 
